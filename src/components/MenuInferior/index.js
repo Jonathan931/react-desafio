@@ -2,9 +2,8 @@ import React from "react";
 import { Menu, MenuBrowser, ItemMenuBrowser } from "./styles";
 
 export default function MenuInferior() {
-  const isMobile = window.innerWidth <= 500;
   return (
-    <Menu isMobile={isMobile}>
+    <Menu>
       <div>
         <span>Minha Conta</span>
         <span align="right">

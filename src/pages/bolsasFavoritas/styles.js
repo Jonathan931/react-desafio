@@ -127,9 +127,6 @@ export const GroupButton = styled.div`
   font-weight: 700;
   display: flex;
   justify-content: center;
-  @media (min-width: 768px) {
-    justify-content: ;
-  }
   div {
     width: 90%;
     display: flex;

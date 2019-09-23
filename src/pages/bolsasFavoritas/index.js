@@ -12,17 +12,18 @@ import { LabelMobile, LabelBrowser } from "../../styles/global.js";
 import Menu from "../../components/Menu";
 import MenuInferior from "../../components/MenuInferior";
 import Footer from "../../components/Footer";
+import Modal from "../../components/Modal";
 
 export default class BolsasFavoritas extends Component {
-  state = {
-    isModalOpen: false
-  };
+  // state = {
+  //   isModalOpen: false
+  // };
 
-  toggleState = e => {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen
-    });
-  };
+  // toggleState = e => {
+  //   this.setState({
+  //     isModalOpen: !this.state.isModalOpen
+  //   });
+  // };
 
   render() {
     return (
@@ -103,35 +104,10 @@ export default class BolsasFavoritas extends Component {
             </Card>
           </Container>
           <Footer />
-        </div>
-        {/* <div id="myModal" className="modal">
-        <div className="modal-content">
-          <h4>Adicionar bolsa</h4>
-          <p>Filtre e adicione as bolsas do jseu interesse</p>
-
-          <div className="group">
-            <label> Selecione sua cidade</label>
-            <select name="select">
-              <option value="valor1" selected>
-                São José dos Campos
-              </option>
-            </select>
-          </div>
-          <div className="group">
-            <label> Selecione o curso de sua preferencia</label>
-            <select name="select">
-              <option value="valor1" selected>
-                São José dos Campos
-              </option>
-            </select>
-          </div>
-          <div className="group">
-            <label>Escolha a modalidade </label>
-            <input type="checkbox" name="vehicle1" value="Bike" /> I have a bike
-            <input type="checkbox" name="vehicle2" value="Car" /> have a car
+          <div>
+            <Modal />
           </div>
         </div>
-      </div> */}
       </div>
     );
   }
