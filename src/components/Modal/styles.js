@@ -49,7 +49,7 @@ export const Modal = styled.div`
         width: 50%;
       }
       margin: 0;
-      padding: 2.5rem;
+      padding: 1.5rem;
       background-color: white;
       border-radius: 0.3125rem;
       box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.5);
@@ -119,7 +119,7 @@ export const Modal = styled.div`
         /* position: relative; */
         display: flex;
         flex-direction: column;
-        max-height: 50vh;
+        /* max-height: 50vh; */
         overflow: auto;
         width: 100%;
 
@@ -127,84 +127,11 @@ export const Modal = styled.div`
           display: flex;
           flex-direction: column;
           margin-top: 10px;
-
           label {
             font-size: 0.7025rem;
             line-height: 0.8125rem;
             font-weight: 700;
             text-transform: uppercase;
-          }
-        }
-
-        div.filtros {
-          display: flex;
-          flex-direction: column;
-          @media (min-width: 768px) {
-            flex-direction: row;
-          }
-          margin-top: 10px;
-          div {
-            margin-top: 10px;
-            flex: 1;
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            label {
-              font-size: 0.7025rem;
-              line-height: 0.8125rem;
-              font-weight: 700;
-              text-transform: uppercase;
-            }
-          }
-        }
-      }
-
-      footer.modal-footer {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 100%;
-        margin: 0;
-        padding: 1.875rem 0 0;
-
-        button.action {
-          position: relative;
-          margin-left: 0.625rem;
-          padding: 0.625rem 1.25rem;
-          border: none;
-          background-color: ${primary};
-          border-radius: 0.25rem;
-          color: white;
-          font-size: 0.87rem;
-          font-weight: 300;
-          overflow: hidden;
-          z-index: 1;
-
-          &:before {
-            position: absolute;
-            content: "";
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: width ${baseDuration};
-            z-index: 0;
-          }
-
-          &:first-child {
-            background-color: ${green};
-          }
-
-          &:last-child {
-            background-color: ${red};
-          }
-
-          &:hover {
-            &:before {
-              width: 100%;
-            }
           }
         }
       }
@@ -232,16 +159,90 @@ export const WrapperResultados = styled.div`
 `;
 
 export const ListCards = styled.div`
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  div {
-    display: flex;
-    flex-direction: row;
+`;
 
+export const Card = styled.div`
+  display: flex;
+  flex-direction: row;
+  /* max-height: 20vh; */
+  min-height: 10vh;
+  div.checkbox {
+    display: absolute;
+    margin: 0 auto;
+  }
+
+  div.img {
+    margin: 0 20px;
+    max-width: 100px;
     img {
-      width: 100px;
-      height: 50px;
+      height: 5vh;
+      width: 100%;
     }
   }
+
+  div.informacao {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-size: 0.9025rem;
+    line-height: 0.8125rem;
+    /* font-weight: 700; */
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+`;
+
+export const FooterModal = styled.footer`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0;
+  padding: 1.875rem 0 0;
+
+  /* button.action {
+    position: relative;
+    margin-left: 0.625rem;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    background-color: ${primary};
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.87rem;
+    font-weight: 300;
+    overflow: hidden;
+    z-index: 1;
+
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: width ${baseDuration};
+      z-index: 0;
+    }
+
+    &:first-child {
+      background-color: ${green};
+    }
+
+    &:last-child {
+      background-color: ${red};
+    }
+
+    &:hover {
+      &:before {
+        width: 100%;
+      }
+    }
+  } */
 `;

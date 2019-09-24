@@ -8,6 +8,8 @@ import {
   Button,
   LabelCortada
 } from "./styles";
+import { ButtonPrimary } from "../../components/Utils/Button/Primary";
+import { ButtonSecundary } from "../../components/Utils/Button/Secundary";
 import { LabelMobile, LabelBrowser } from "../../styles/global.js";
 import Menu from "../../components/Menu";
 import MenuInferior from "../../components/MenuInferior";
@@ -61,7 +63,7 @@ export default class BolsasFavoritas extends Component {
             </div>
           </GroupButton>
           <Container>
-            <Card>
+            <Card data-modal-trigger="trigger-1" className="trigger">
               <header onClick={this.toggleState}>
                 <i className="fa fa-plus-circle" aria-hidden="true"></i>
                 <strong>Adicionar Bolsa</strong>
@@ -93,12 +95,8 @@ export default class BolsasFavoritas extends Component {
                 </strong>
 
                 <div className="action">
-                  <button type="button" className="excluir">
-                    Excluir
-                  </button>
-                  <button type="button" className="oferta">
-                    Ver oferta
-                  </button>
+                  <ButtonPrimary title="Excluir" />
+                  <ButtonSecundary title="Ver oferta" />
                 </div>
               </header>
             </Card>

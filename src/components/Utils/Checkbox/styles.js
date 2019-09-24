@@ -1,21 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-export const GroupChexbox = styled.div`
-  display: flex;
-  margin-top: 10px;
-
-  span {
-    display: flex;
-    flex: 1;
-    align-items: center;
-
-    label {
-      padding-left: 5px;
-    }
-  }
-`;
-
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;

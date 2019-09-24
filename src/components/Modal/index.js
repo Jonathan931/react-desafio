@@ -1,40 +1,19 @@
 import React, { Component } from "react";
-import { SelectCustom } from "../Utils/Select/index";
-import { CheckBoxList } from "../Utils/Checkbox/index";
-import { RangeInput } from "../Utils/Range/index";
-import { Modal, WrapperResultados, ListCards } from "./styles";
+import Filter from "./Filtro";
+import { ButtonPrimary } from "../Utils/Button/Primary";
+import { ButtonSecundary } from "../Utils/Button/Secundary";
+import {
+  Modal,
+  WrapperResultados,
+  ListCards,
+  Card,
+  FooterModal
+} from "./styles";
 
 export default class FancyModalButton extends Component {
-  componentDidMount() {
-    const buttons = document.querySelectorAll(`button[data-modal-trigger]`);
-
-    for (let button of buttons) {
-      modalEvent(button);
-    }
-
-    function modalEvent(button) {
-      button.addEventListener("click", () => {
-        const trigger = button.getAttribute("data-modal-trigger");
-        const modal = document.querySelector(`[data-modal=${trigger}]`);
-        const contentWrapper = modal.querySelector(".content-wrapper");
-        const close = modal.querySelector(".close");
-
-        close.addEventListener("click", () => modal.classList.remove("open"));
-        modal.addEventListener("click", () => modal.classList.remove("open"));
-        contentWrapper.addEventListener("click", e => e.stopPropagation());
-
-        modal.classList.toggle("open");
-      });
-    }
-  }
-
   render() {
     return (
       <Modal>
-        <button data-modal-trigger="trigger-1" className="trigger">
-          <i className="fa fa-fire" aria-hidden="true"></i>
-          Modal 1
-        </button>
         <div data-modal="trigger-1" className="modal">
           <article className="content-wrapper">
             <button className="close"></button>
@@ -43,28 +22,7 @@ export default class FancyModalButton extends Component {
               <small>Filtre e adicione as bolsas de seu interesse.</small>
             </header>
             <div className="contentModal">
-              <div className="filtros">
-                <div>
-                  <label>Selecione sua cidade</label>
-                  <SelectCustom />
-                </div>
-                <div>
-                  <label>Selecione o curso de sua preferência</label>
-                  <SelectCustom />
-                </div>
-              </div>
-
-              <div className="checkbox">
-                <label>Como você quer estudar?</label>
-                <CheckBoxList />
-              </div>
-              <div className="filtros">
-                <div>
-                  <label>Até quanto pode pagar?</label>
-                  <RangeInput />
-                </div>
-              </div>
-
+              <Filter />
               <WrapperResultados className="wrapper-resutados">
                 <div className="resutados">
                   <span>
@@ -78,26 +36,71 @@ export default class FancyModalButton extends Component {
                 </div>
               </WrapperResultados>
               <ListCards>
-                <div>
-                  <span>
+                <Card>
+                  <div className="checkbox">
                     <input type="checkbox" />
+                  </div>
+                  <div className="img">
                     <img
                       src="https://www.tryimg.com/u/2019/04/16/unip.png"
-                      width="100"
-                      height="100"
                       alt="teste"
                     />
-                  </span>
-                </div>
+                  </div>
+                  <div className="informacao">
+                    <div>
+                      <span>
+                        <label>Ciências Contábeis</label>
+                      </span>
+                      <span>
+                        <label>Bacharelado</label>
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        Bolsa de <strong>75%</strong>
+                      </span>
+                      <span>
+                        <strong>R$ 425</strong>
+                      </span>
+                    </div>
+                  </div>
+                </Card>
               </ListCards>
             </div>
-            <footer className="modal-footer">
-              <button className="action">Accept</button>
-              <button className="action">Decline</button>
-            </footer>
+
+            <FooterModal className="modal-footer">
+              <ButtonPrimary className="fechar" title="Cancelar" />
+              <ButtonSecundary title="Adicionar Bolsas" />
+            </FooterModal>
           </article>
         </div>
       </Modal>
     );
   }
+
+  componentDidMount() {
+    const divs = document.querySelectorAll(`div[data-modal-trigger]`);
+    for (let div of divs) {
+      this.modalEvent(div);
+    }
+  }
+
+  modalEvent = button => {
+    button.addEventListener("click", () => {
+      const trigger = button.getAttribute("data-modal-trigger");
+      const modal = document.querySelector(`[data-modal=${trigger}]`);
+      const contentWrapper = modal.querySelector(".content-wrapper");
+      const close = modal.querySelector(".close");
+      const fecharButton = modal.querySelector(".fechar");
+
+      fecharButton.addEventListener("click", () =>
+        modal.classList.remove("open")
+      );
+      close.addEventListener("click", () => modal.classList.remove("open"));
+      modal.addEventListener("click", () => modal.classList.remove("open"));
+      contentWrapper.addEventListener("click", e => e.stopPropagation());
+
+      modal.classList.toggle("open");
+    });
+  };
 }

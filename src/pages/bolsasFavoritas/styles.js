@@ -14,6 +14,7 @@ export const Container = styled.div`
 export const Card = styled.div`
   max-width: 300px;
   background: #fff;
+  font-size: 0.8125rem;
   border-radius: 3px;
   margin: 0 10px 10px;
   display: flex;
@@ -61,8 +62,6 @@ export const Card = styled.div`
     margin-top: 20px;
 
     button {
-      border: none;
-      color: white;
       border-radius: 5px;
       margin-left: 5px;
       margin-bottom: 10px;
@@ -71,24 +70,6 @@ export const Card = styled.div`
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
-    }
-
-    button.excluir {
-      background: white;
-      color: ${cores.azulSecundario};
-      border: 1px solid ${cores.azulSecundario};
-      &:hover {
-        background: #dcdcdc;
-      }
-    }
-
-    button.oferta {
-      background: ${cores.amareloPrincipal};
-      color: white;
-      border: 1px solid ${cores.amareloSecundario};
-      &:hover {
-        background: ${cores.amareloSecundario};
-      }
     }
   }
 `;
@@ -146,7 +127,8 @@ export const GroupButton = styled.div`
 `;
 
 export const Button = styled.span`
-  color: ${cores.azulSecundario};
+  color: ${props => (props.active ? "white" : cores.azulSecundario)};
+  background-color: ${props => (props.active ? cores.azulSecundario : "white")};
   border: 1px solid ${cores.azulSecundario};
   padding: 5px 24px;
   cursor: pointer;
