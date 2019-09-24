@@ -14,8 +14,8 @@ import { serviceBolsas }  from "../../services/bolsas";
 export default class FancyModalButton extends PureComponent {
 
   state ={
-    listOriginal=[],
-    listFiltrada=[],
+    listOriginal:[],
+    listFiltrada:[],
   }
 
   render() {
