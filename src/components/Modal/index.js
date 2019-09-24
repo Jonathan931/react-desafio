@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Filter from "./Filtro";
 import { ButtonPrimary } from "../Utils/Button/Primary";
 import { ButtonSecundary } from "../Utils/Button/Secundary";
@@ -9,8 +9,15 @@ import {
   Card,
   FooterModal
 } from "./styles";
+import { serviceBolsas }  from "../../services/bolsas";
 
-export default class FancyModalButton extends Component {
+export default class FancyModalButton extends PureComponent {
+
+  state ={
+    listOriginal=[],
+    listFiltrada=[],
+  }
+
   render() {
     return (
       <Modal>
@@ -78,11 +85,17 @@ export default class FancyModalButton extends Component {
     );
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const divs = document.querySelectorAll(`div[data-modal-trigger]`);
-    for (let div of divs) {
+    for (const div of divs) {
       this.modalEvent(div);
     }
+
+    const {data} = await serviceBolsas.buscar();
+    this.setState({
+      listFiltrada: data,
+      listOriginal: data
+    })
   }
 
   modalEvent = button => {
@@ -99,8 +112,11 @@ export default class FancyModalButton extends Component {
       close.addEventListener("click", () => modal.classList.remove("open"));
       modal.addEventListener("click", () => modal.classList.remove("open"));
       contentWrapper.addEventListener("click", e => e.stopPropagation());
-
       modal.classList.toggle("open");
     });
   };
+
+  handleSetLista = () =>{
+    
+  }
 }
