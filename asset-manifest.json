@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/desafio/static/css/main.539f8d8e.chunk.css",
+    "main.js": "/desafio/static/js/main.55beab93.chunk.js",
+    "main.js.map": "/desafio/static/js/main.55beab93.chunk.js.map",
+    "runtime~main.js": "/desafio/static/js/runtime~main.e69c3b5a.js",
+    "runtime~main.js.map": "/desafio/static/js/runtime~main.e69c3b5a.js.map",
+    "static/css/2.2a1b566a.chunk.css": "/desafio/static/css/2.2a1b566a.chunk.css",
+    "static/js/2.879376cd.chunk.js": "/desafio/static/js/2.879376cd.chunk.js",
+    "static/js/2.879376cd.chunk.js.map": "/desafio/static/js/2.879376cd.chunk.js.map",
+    "index.html": "/desafio/index.html",
+    "precache-manifest.cc21b107f5eec43e78bcc6aa55393fbf.js": "/desafio/precache-manifest.cc21b107f5eec43e78bcc6aa55393fbf.js",
+    "service-worker.js": "/desafio/service-worker.js",
+    "static/css/2.2a1b566a.chunk.css.map": "/desafio/static/css/2.2a1b566a.chunk.css.map",
+    "static/css/main.539f8d8e.chunk.css.map": "/desafio/static/css/main.539f8d8e.chunk.css.map",
+    "static/media/font-awesome.min.css": "/desafio/static/media/fontawesome-webfont.fee66e71.woff",
+    "static/media/logo-querobolsa.svg": "/desafio/static/media/logo-querobolsa.017704e7.svg"
+  }
+}
