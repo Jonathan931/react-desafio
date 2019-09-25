@@ -21,6 +21,12 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${cores.cinza};
     color: ${cores.preto};
   }
+  .container{
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+  }
+
 `;
 
 export const LabelMobile = styled.p`

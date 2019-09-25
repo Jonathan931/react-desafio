@@ -1,14 +1,14 @@
 import styled from "styled-components";
+import { cores } from "../../colors";
 
 export const GroupRange = styled.div`
   input.slider {
-    margin: 5px;
+    margin: 20px 0px;
     -webkit-appearance: none;
     width: 95%;
-    height: 15px;
-    border-radius: 5px;
-    background: red;
-    /* background-color: #9a905d; */
+    height: 4px;
+    border-radius: 4px;
+    background: ${cores.azulSecundario};
     outline: none;
     opacity: 0.7;
     -webkit-transition: 0.2s;
@@ -24,7 +24,7 @@ export const GroupRange = styled.div`
       height: 25px;
       border-radius: 50%;
       background: white;
-      border: 2px solid #4caf50;
+      border: 2px solid ${cores.azulSecundario};
       cursor: pointer;
     }
 

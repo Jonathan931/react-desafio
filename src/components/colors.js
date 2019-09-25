@@ -5,5 +5,6 @@ export const cores = {
   amareloSecundario: "#DE9E1F",
   verde: "#0FA866",
   preto: "#1F2D30",
-  cinza: "#FBFBFB"
+  cinza: "#FBFBFB",
+  cinza2: "#d2d2d2"
 };

@@ -7,18 +7,22 @@ import {
   WrapperResultados,
   ListCards,
   Card,
-  FooterModal
+  FooterModal,
+  CheckboxSelecao
 } from "./styles";
-import { serviceBolsas }  from "../../services/bolsas";
+import { serviceBolsas } from "../../services/bolsas";
 
 export default class FancyModalButton extends PureComponent {
-
-  state ={
-    listOriginal:[],
-    listFiltrada:[],
-  }
+  state = {
+    listOriginal: [],
+    cidades: [],
+    cursos: [],
+    listFiltrada: []
+  };
 
   render() {
+    const { cursos, cidades, listOriginal, listFiltrada } = this.state;
+    console.log(listFiltrada);
     return (
       <Modal>
         <div data-modal="trigger-1" className="modal">
@@ -29,7 +33,12 @@ export default class FancyModalButton extends PureComponent {
               <small>Filtre e adicione as bolsas de seu interesse.</small>
             </header>
             <div className="contentModal">
-              <Filter />
+              <Filter
+                cursos={cursos}
+                cidades={cidades}
+                data={listOriginal}
+                onChange={this.handleOnChangeFilter}
+              />
               <WrapperResultados className="wrapper-resutados">
                 <div className="resutados">
                   <span>
@@ -43,38 +52,48 @@ export default class FancyModalButton extends PureComponent {
                 </div>
               </WrapperResultados>
               <ListCards>
-                <Card>
-                  <div className="checkbox">
-                    <input type="checkbox" />
-                  </div>
-                  <div className="img">
-                    <img
-                      src="https://www.tryimg.com/u/2019/04/16/unip.png"
-                      alt="teste"
-                    />
-                  </div>
-                  <div className="informacao">
-                    <div>
-                      <span>
-                        <label>Ciências Contábeis</label>
-                      </span>
-                      <span>
-                        <label>Bacharelado</label>
-                      </span>
+                {listFiltrada.map((bolsa, index) => (
+                  <Card key={index}>
+                    <div className="checkbox">
+                      <CheckboxSelecao>
+                        <input
+                          type="checkbox"
+                          value={index}
+                          onClick={e => this.handleProvisorio({ bolsa, e })}
+                          onChange={e => this.handleProvisorio({ bolsa, e })}
+                          name="campo-checkbox"
+                          id="campo-checkbox1"
+                        />
+                      </CheckboxSelecao>
                     </div>
-                    <div>
-                      <span>
-                        Bolsa de <strong>75%</strong>
-                      </span>
-                      <span>
-                        <strong>R$ 425</strong>
-                      </span>
+                    <div className="img">
+                      <img
+                        src={bolsa.university.logo_url}
+                        alt={bolsa.university.name}
+                      />
                     </div>
-                  </div>
-                </Card>
+                    <div className="informacao">
+                      <div>
+                        <span>
+                          <label className="titulo">{bolsa.course.name}</label>
+                        </span>
+                        <span>
+                          <label>{bolsa.course.level}</label>
+                        </span>
+                      </div>
+                      <div>
+                        <span>
+                          Bolsa de <strong>{bolsa.discount_percentage}%</strong>
+                        </span>
+                        <span>
+                          <strong>R$ {bolsa.price_with_discount}</strong>
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </ListCards>
             </div>
-
             <FooterModal className="modal-footer">
               <ButtonPrimary className="fechar" title="Cancelar" />
               <ButtonSecundary title="Adicionar Bolsas" />
@@ -87,16 +106,42 @@ export default class FancyModalButton extends PureComponent {
 
   async componentDidMount() {
     const divs = document.querySelectorAll(`div[data-modal-trigger]`);
-    for (const div of divs) {
-      this.modalEvent(div);
-    }
 
-    const {data} = await serviceBolsas.buscar();
-    this.setState({
+    divs.forEach(div => {
+      this.modalEvent(div);
+    });
+
+    const { data } = await serviceBolsas.buscar();
+    const cidades = [];
+    const cursos = [];
+    data.forEach(row => {
+      if (row.campus.city && cidades.indexOf(row.campus.city) === -1) {
+        cidades.push(row.campus.city);
+      }
+      if (row.course.name && cursos.indexOf(row.course.name) === -1) {
+        cursos.push(row.course.name);
+      }
+    });
+
+    await this.setState({
       listFiltrada: data,
-      listOriginal: data
-    })
+      listOriginal: data,
+      cidades: this.handleOndernacao(cidades),
+      cursos: this.handleOndernacao(cursos)
+    });
   }
+
+  handleOndernacao = list => {
+    return list.sort(function(a, b) {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
+  };
 
   modalEvent = button => {
     button.addEventListener("click", () => {
@@ -105,7 +150,6 @@ export default class FancyModalButton extends PureComponent {
       const contentWrapper = modal.querySelector(".content-wrapper");
       const close = modal.querySelector(".close");
       const fecharButton = modal.querySelector(".fechar");
-
       fecharButton.addEventListener("click", () =>
         modal.classList.remove("open")
       );
@@ -116,7 +160,18 @@ export default class FancyModalButton extends PureComponent {
     });
   };
 
-  handleSetLista = () =>{
-    
-  }
+  handleOnChangeFilter = listFiltrada => {
+    this.setState({
+      listFiltrada
+    });
+  };
+
+  handleProvisorio = (data, e) => {
+    console.log(data);
+    console.log(e);
+  };
+
+  handleAdicionar = () => {
+    this.props.onAdicionar();
+  };
 }

@@ -17,15 +17,9 @@ import Footer from "../../components/Footer";
 import Modal from "../../components/Modal";
 
 export default class BolsasFavoritas extends Component {
-  // state = {
-  //   isModalOpen: false
-  // };
-
-  // toggleState = e => {
-  //   this.setState({
-  //     isModalOpen: !this.state.isModalOpen
-  //   });
-  // };
+  state = {
+    list: []
+  };
 
   render() {
     return (
@@ -103,10 +97,16 @@ export default class BolsasFavoritas extends Component {
           </Container>
           <Footer />
           <div>
-            <Modal />
+            <Modal onAdicionar={this.handleAdicionaNaList} />
           </div>
         </div>
       </div>
     );
   }
+
+  handleAdicionaNaList = data => {
+    this.setState({
+      list: [...this.state.list, data]
+    });
+  };
 }

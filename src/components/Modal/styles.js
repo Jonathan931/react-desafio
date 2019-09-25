@@ -1,20 +1,12 @@
 import styled from "styled-components";
-
-// const sm = "20rem";
-// const rm = "48rem";
-
+import { cores } from "../colors";
 const baseDuration = "0.25s";
 const primary = "slategray";
-// const white = "whitesmoke";
-// const med = "48rem";
-// const lg = "64rem";
-const green = "#2ecc71";
-const red = "#e74c3c";
 
 export const Modal = styled.div`
   div.modal {
     position: fixed;
-    top: -10vh;
+    top: -5vh;
     left: 0;
     display: flex;
     align-items: center;
@@ -158,8 +150,41 @@ export const WrapperResultados = styled.div`
   }
 `;
 
+export const CheckboxSelecao = styled.div`
+  input[type="checkbox"] {
+    display: none; /* Esconde os inputs */
+  }
+
+  label {
+    cursor: pointer;
+  }
+  input[type="checkbox"] + label:before {
+    border: 1px solid #5d5c5c;
+    content: "\00a0";
+    display: inline-block;
+    font: 16px/1em sans-serif;
+    height: 16px;
+    margin: 0 0.25em 0 0;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+    border-radius: 4px;
+  }
+
+  input[type="checkbox"]:checked + label:before {
+    background: #a0a0a0;
+    color: #fff;
+    content: "\2713";
+    text-align: center;
+  }
+
+  input[type="checkbox"]:checked + label:after {
+    font-weight: bold;
+  }
+`;
+
 export const ListCards = styled.div`
-  margin-top: 30px;
+  margin-top: 6px;
   display: flex;
   flex-direction: column;
 `;
@@ -167,32 +192,43 @@ export const ListCards = styled.div`
 export const Card = styled.div`
   display: flex;
   flex-direction: row;
-  /* max-height: 20vh; */
-  min-height: 10vh;
-  div.checkbox {
-    display: absolute;
-    margin: 0 auto;
-  }
-
+  padding: 5px;
+  margin-top: 10px;
+  min-height: 15vh;
+  border-top: 4px solid ${cores.cinza2};
   div.img {
-    margin: 0 20px;
-    max-width: 100px;
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
-      height: 5vh;
-      width: 100%;
+      height: 80%;
+      width: 80%;
     }
   }
 
   div.informacao {
     display: flex;
+    flex: 1;
     justify-content: space-between;
     flex-direction: column;
     font-size: 0.9025rem;
     line-height: 0.8125rem;
-    /* font-weight: 700; */
+    text-align: center;
+    margin-top: 5px;
     div {
       display: flex;
       flex-direction: column;
+    }
+
+    label.titulo {
+      font-size: 0.9525rem;
+      font-weight: 700;
+      color: ${cores.azulSecundario};
+    }
+
+    strong {
+      color: ${cores.verde};
     }
   }
 `;
@@ -229,14 +265,6 @@ export const FooterModal = styled.footer`
       background-color: rgba(255, 255, 255, 0.2);
       transition: width ${baseDuration};
       z-index: 0;
-    }
-
-    &:first-child {
-      background-color: ${green};
-    }
-
-    &:last-child {
-      background-color: ${red};
     }
 
     &:hover {
