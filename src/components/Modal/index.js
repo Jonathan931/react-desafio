@@ -17,12 +17,13 @@ export default class FancyModalButton extends PureComponent {
     listOriginal: [],
     cidades: [],
     cursos: [],
-    listFiltrada: []
+    listFiltrada: [],
+    listProvisoria: []
   };
 
   render() {
     const { cursos, cidades, listOriginal, listFiltrada } = this.state;
-    console.log(listFiltrada);
+    console.log(this.state.listProvisoria);
     return (
       <Modal>
         <div data-modal="trigger-1" className="modal">
@@ -59,8 +60,9 @@ export default class FancyModalButton extends PureComponent {
                         <input
                           type="checkbox"
                           value={index}
-                          onClick={e => this.handleProvisorio({ bolsa, e })}
-                          onChange={e => this.handleProvisorio({ bolsa, e })}
+                          onChange={event =>
+                            this.handleProvisorio({ bolsa, event })
+                          }
                           name="campo-checkbox"
                           id="campo-checkbox1"
                         />
@@ -96,7 +98,10 @@ export default class FancyModalButton extends PureComponent {
             </div>
             <FooterModal className="modal-footer">
               <ButtonPrimary className="fechar" title="Cancelar" />
-              <ButtonSecundary title="Adicionar Bolsas" />
+              <ButtonSecundary
+                title="Adicionar Bolsas"
+                onClick={this.handleAdicionar}
+              />
             </FooterModal>
           </article>
         </div>
@@ -147,15 +152,12 @@ export default class FancyModalButton extends PureComponent {
     button.addEventListener("click", () => {
       const trigger = button.getAttribute("data-modal-trigger");
       const modal = document.querySelector(`[data-modal=${trigger}]`);
-      const contentWrapper = modal.querySelector(".content-wrapper");
       const close = modal.querySelector(".close");
       const fecharButton = modal.querySelector(".fechar");
       fecharButton.addEventListener("click", () =>
         modal.classList.remove("open")
       );
       close.addEventListener("click", () => modal.classList.remove("open"));
-      modal.addEventListener("click", () => modal.classList.remove("open"));
-      contentWrapper.addEventListener("click", e => e.stopPropagation());
       modal.classList.toggle("open");
     });
   };
@@ -166,12 +168,20 @@ export default class FancyModalButton extends PureComponent {
     });
   };
 
-  handleProvisorio = (data, e) => {
-    console.log(data);
-    console.log(e);
+  handleProvisorio = ({ bolsa, event }) => {
+    const { checked: isAdd } = event.target;
+    const { listProvisoria } = this.state;
+    if (isAdd) {
+      this.setState({ listProvisoria: [...listProvisoria, bolsa] });
+    } else {
+      this.setState({
+        listProvisoria: listProvisoria.filter(row => row !== bolsa)
+      });
+    }
   };
 
   handleAdicionar = () => {
-    this.props.onAdicionar();
+    const { listProvisoria } = this.state;
+    this.props.onAdicionar({ listProvisoria });
   };
 }

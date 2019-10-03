@@ -22,12 +22,12 @@ export default class BolsasFavoritas extends Component {
   };
 
   render() {
+    const { list } = this.state;
     return (
       <div className="App">
         <div className="container">
           <Menu />
           <MenuInferior />
-
           <History>
             <LabelMobile>
               <i className="fa fa-angle-left" style={{ fontSize: 19 }}></i>
@@ -66,34 +66,41 @@ export default class BolsasFavoritas extends Component {
                 </small>
               </header>
             </Card>
-            <Card>
-              <header>
-                <img
-                  alt="morumbi"
-                  src="https://www.tryimg.com/u/2019/04/16/anhembi-morumbi.png"
-                  width="85%"
-                  height="85%"
-                />
-                <strong>Anharenga</strong>
-                <span>Sistemas de Informação</span>
-                <hr size="5" />
-                <strong style={{ fontSize: 14 }}>PRESENCIAL NOITE </strong>
-                <span>Início das aulas em: 05/03/2020</span>
-                <hr size="5" />
-                <strong style={{ fontSize: 14 }}>
-                  Mensalidade com o Quero Bolsa:
-                </strong>
-                <LabelCortada>R$ 2.7845</LabelCortada>
-                <strong>
-                  R$ 1.7845 <small>/mês</small>
-                </strong>
+            {list.map((bolsa, key) => (
+              <Card key={key}>
+                <header>
+                  <img
+                    alt={bolsa.university.name}
+                    src={bolsa.university.logo_url}
+                    width="85%"
+                    height="85%"
+                  />
+                  <strong>{bolsa.university.name}</strong>
+                  <span>{bolsa.course.name}</span>
+                  <hr size="5" />
+                  <strong
+                    style={{ fontSize: 14 }}
+                  >{`${bolsa.course.kind} ${bolsa.course.shift}`}</strong>
+                  <span>Início das aulas em: {bolsa.start_date}</span>
+                  <hr size="5" />
+                  <strong style={{ fontSize: 14 }}>
+                    Mensalidade com o Quero Bolsa:
+                  </strong>
+                  <LabelCortada>R$ {bolsa.full_price}</LabelCortada>
+                  <strong>
+                    R$ {bolsa.price_with_discount} <small>/mês</small>
+                  </strong>
 
-                <div className="action">
-                  <ButtonPrimary title="Excluir" />
-                  <ButtonSecundary title="Ver oferta" />
-                </div>
-              </header>
-            </Card>
+                  <div className="action">
+                    <ButtonPrimary
+                      title="Excluir"
+                      onClick={() => this.handleRemoveBolsaList(bolsa)}
+                    />
+                    <ButtonSecundary title="Ver oferta" />
+                  </div>
+                </header>
+              </Card>
+            ))}
           </Container>
           <Footer />
           <div>
@@ -104,9 +111,40 @@ export default class BolsasFavoritas extends Component {
     );
   }
 
-  handleAdicionaNaList = data => {
+  handleAdicionaNaList = ({ listProvisoria }) => {
+    const { list } = this.state;
+    const filtered = listProvisoria.filter(row => list.indexOf(row) !== -1);
     this.setState({
-      list: [...this.state.list, data]
+      list: this.handleOndernacaoNomeFaculdade([...filtered, ...listProvisoria])
+    });
+  };
+
+  handleRemoveBolsaList = bolsa => {
+    const { list } = this.state;
+    this.setState({
+      list: list.filter(row => row !== bolsa)
+    });
+  };
+
+  handleOndernacaoNomeFaculdade = (list, orderAsc = true) => {
+    return list.sort(function(a, b) {
+      if (orderAsc) {
+        if (a.course.name < b.course.name) {
+          return -1;
+        }
+        if (a.course.name > b.course.name) {
+          return 1;
+        }
+      } else {
+        if (a.course.name > b.course.name) {
+          return -1;
+        }
+        if (a.course.name < b.course.name) {
+          return 1;
+        }
+      }
+
+      return 0;
     });
   };
 }

@@ -9,9 +9,7 @@ export class CheckBox extends Component {
           type="checkbox"
           id={this.props.id}
           checked={this.props.checked || false}
-          onChange={() => {
-            console.log(`teste`);
-          }}
+          onChange={this.props.onChange}
         />
         <span className="overlay">
           <svg
@@ -31,11 +29,5 @@ export class CheckBox extends Component {
         </span>
       </Checkbox>
     );
-  }
-  componentDidMount() {
-    const checkboxes = document.getElementById(`${this.props.id}`);
-    checkboxes.addEventListener("change", () => {
-      this.props.onChange();
-    });
   }
 }
