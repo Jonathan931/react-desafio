@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { cores } from "../colors";
 const baseDuration = "0.25s";
-const primary = "slategray";
 
 export const Modal = styled.div`
   div.modal {
@@ -119,11 +118,15 @@ export const Modal = styled.div`
           display: flex;
           flex-direction: column;
           margin-top: 10px;
+          justify-content: center;
           label {
             font-size: 0.7025rem;
             line-height: 0.8125rem;
             font-weight: 700;
             text-transform: uppercase;
+            // > span {
+            //   display: block;
+            // }
           }
         }
       }
@@ -151,35 +154,77 @@ export const WrapperResultados = styled.div`
 `;
 
 export const CheckboxSelecao = styled.div`
-  input[type="checkbox"] {
-    display: none; /* Esconde os inputs */
-  }
-
-  label {
+  .cbx {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
     cursor: pointer;
   }
-  input[type="checkbox"] + label:before {
-    border: 1px solid #5d5c5c;
-    content: "\00a0";
+  .cbx span {
     display: inline-block;
-    font: 16px/1em sans-serif;
-    height: 16px;
-    margin: 0 0.25em 0 0;
-    padding: 0;
-    vertical-align: top;
-    width: 16px;
-    border-radius: 4px;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+  }
+  .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid ${cores.cinza2};
+    transition: all 0.2s ease;
+  }
+  .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+  }
+  .cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: ${cores.azulSecundario};
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+  }
+  .cbx span:last-child {
+    padding-left: 8px;
+  }
+  .cbx:hover span:first-child {
+    border-color: ${cores.azulSecundario};
   }
 
-  input[type="checkbox"]:checked + label:before {
-    background: #a0a0a0;
-    color: #fff;
-    content: "\2713";
-    text-align: center;
+  .inp-cbx:checked + .cbx span:first-child {
+    background: ${cores.azulPrincipal};
+    border-color: ${cores.azulPrincipal};
+    animation: wave 0.4s ease;
+  }
+  .inp-cbx:checked + .cbx span:first-child svg {
+    stroke-dashoffset: 0;
+  }
+  .inp-cbx:checked + .cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
   }
 
-  input[type="checkbox"]:checked + label:after {
-    font-weight: bold;
+  @keyframes wave {
+    50% {
+      transform: scale(0.9);
+    }
   }
 `;
 
@@ -194,7 +239,7 @@ export const Card = styled.div`
   flex-direction: row;
   padding: 5px;
   margin-top: 10px;
-  min-height: 15vh;
+  min-height: 17vh;
   border-top: 4px solid ${cores.cinza2};
   div.img {
     width: 140px;
@@ -202,8 +247,8 @@ export const Card = styled.div`
     justify-content: center;
     align-items: center;
     img {
-      height: 80%;
-      width: 80%;
+      height: 72%;
+      width: 74%;
     }
   }
 
@@ -213,7 +258,7 @@ export const Card = styled.div`
     justify-content: space-between;
     flex-direction: column;
     font-size: 0.9025rem;
-    line-height: 0.8125rem;
+    line-height: 1rem;
     text-align: center;
     margin-top: 5px;
     div {
@@ -237,40 +282,9 @@ export const FooterModal = styled.footer`
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  // justify-content: flex-end;
   width: 100%;
   margin: 0;
   padding: 1.875rem 0 0;
-
-  /* button.action {
-    position: relative;
-    margin-left: 0.625rem;
-    padding: 0.625rem 1.25rem;
-    border: none;
-    background-color: ${primary};
-    border-radius: 0.25rem;
-    color: white;
-    font-size: 0.87rem;
-    font-weight: 300;
-    overflow: hidden;
-    z-index: 1;
-
-    &:before {
-      position: absolute;
-      content: "";
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.2);
-      transition: width ${baseDuration};
-      z-index: 0;
-    }
-
-    &:hover {
-      &:before {
-        width: 100%;
-      }
-    }
-  } */
+  justify-content: space-between;
 `;

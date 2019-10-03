@@ -58,14 +58,21 @@ export default class FancyModalButton extends PureComponent {
                     <div className="checkbox">
                       <CheckboxSelecao>
                         <input
+                          className="inp-cbx"
+                          id={`cbx_${index}`}
                           type="checkbox"
-                          value={index}
                           onChange={event =>
                             this.handleProvisorio({ bolsa, event })
                           }
-                          name="campo-checkbox"
-                          id="campo-checkbox1"
+                          style={{ display: `none` }}
                         />
+                        <label className="cbx" htmlFor={`cbx_${index}`}>
+                          <span>
+                            <svg width="12px" height="10px" viewBox="0 0 12 10">
+                              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                            </svg>
+                          </span>
+                        </label>
                       </CheckboxSelecao>
                     </div>
                     <div className="img">
@@ -100,6 +107,8 @@ export default class FancyModalButton extends PureComponent {
               <ButtonPrimary className="fechar" title="Cancelar" />
               <ButtonSecundary
                 title="Adicionar Bolsas"
+                className="fechar"
+                disabled
                 onClick={this.handleAdicionar}
               />
             </FooterModal>
@@ -153,9 +162,10 @@ export default class FancyModalButton extends PureComponent {
       const trigger = button.getAttribute("data-modal-trigger");
       const modal = document.querySelector(`[data-modal=${trigger}]`);
       const close = modal.querySelector(".close");
-      const fecharButton = modal.querySelector(".fechar");
-      fecharButton.addEventListener("click", () =>
-        modal.classList.remove("open")
+      const fecharButton = modal.querySelectorAll(".fechar");
+      console.log(fecharButton);
+      fecharButton.forEach(item =>
+        item.addEventListener("click", () => modal.classList.remove("open"))
       );
       close.addEventListener("click", () => modal.classList.remove("open"));
       modal.classList.toggle("open");

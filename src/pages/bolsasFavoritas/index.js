@@ -111,12 +111,24 @@ export default class BolsasFavoritas extends Component {
     );
   }
 
-  handleAdicionaNaList = ({ listProvisoria }) => {
+  componentDidMount() {
+    const list = localStorage.getItem("@BOLSASFAVORITAS");
+    if (list) {
+      this.setState({
+        list: JSON.parse(list)
+      });
+    }
+  }
+
+  handleAdicionaNaList = async ({ listProvisoria }) => {
     const { list } = this.state;
-    const filtered = listProvisoria.filter(row => list.indexOf(row) !== -1);
-    this.setState({
+    const filtered = await listProvisoria.filter(
+      row => list.indexOf(row) !== -1
+    );
+    await this.setState({
       list: this.handleOndernacaoNomeFaculdade([...filtered, ...listProvisoria])
     });
+    localStorage.setItem("@BOLSASFAVORITAS", JSON.stringify(this.state.list));
   };
 
   handleRemoveBolsaList = bolsa => {
