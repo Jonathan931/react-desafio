@@ -2,7 +2,7 @@
   "name": "bolsas-favoritas",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jonathan931.github.io/desafio",
+  "homepage": "https://jonathan931.github.io/react-desafio",
   "dependencies": {
     "axios": "^0.19.0",
     "font-awesome": "^4.7.0",
